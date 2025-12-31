@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر CD | اشتراكات رقمية موثوقة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #08080a;
+            --accent: #00d2ff;
+            --telegram-color: #24A1DE;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+            --success: #00ff88;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
+        body { background-color: var(--bg); color: #fff; line-height: 1.6; overflow-x: hidden; }
+
+        header { padding: 60px 20px; text-align: center; background: radial-gradient(circle at top, #15151e, #08080a); }
+        .logo { font-size: 3.5rem; font-weight: 800; color: var(--accent); text-shadow: 0 0 30px rgba(0,210,255,0.3); }
+        .status { display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 255, 136, 0.1); padding: 5px 15px; border-radius: 20px; color: var(--success); font-size: 0.85rem; margin-top: 15px; border: 1px solid rgba(0, 255, 136, 0.2); }
+        .pulse { width: 8px; height: 8px; background: var(--success); border-radius: 50%; animation: pulse 1.5s infinite; }
+
+        /* قسم دليل الثقة الجديد */
+        .trust-box {
+            max-width: 800px; margin: 20px auto; padding: 30px;
+            background: rgba(36, 161, 222, 0.05);
+            border: 1px solid var(--telegram-color);
+            border-radius: 25px; text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        .trust-box h2 { color: var(--telegram-color); margin-bottom: 10px; }
+        .btn-telegram {
+            display: inline-block; padding: 12px 30px; background: var(--telegram-color);
+            color: white; text-decoration: none; border-radius: 50px; font-weight: bold;
+            margin-top: 15px; transition: 0.3s;
+        }
+        .btn-telegram:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(36, 161, 222, 0.5); }
+
+        /* المنتجات */
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .product-card { 
+            background: var(--glass); border: 1px solid var(--border); border-radius: 24px; 
+            padding: 30px; transition: 0.4s; display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .product-card:hover { border-color: var(--accent); transform: translateY(-5px); background: rgba(255,255,255,0.05); }
+        .price { font-size: 2rem; font-weight: 700; color: var(--accent); margin: 20px 0; }
+        .price span { font-size: 0.9rem; color: #777; margin-right: 5px; }
+        
+        .btn-order { 
+            display: block; width: 100%; padding: 15px; background: var(--accent); color: #000;
+            text-decoration: none; text-align: center; border-radius: 12px; font-weight: 700; transition: 0.3s;
+        }
+        .btn-order:hover { background: #fff; box-shadow: 0 0 25px var(--accent); }
+
+        footer { padding: 40px 20px; text-align: center; border-top: 1px solid var(--border); margin-top: 50px; }
+        .social-link { color: #888; text-decoration: none; transition: 0.3s; }
+        .social-link:hover { color: var(--accent); }
+
+        @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">متجر CD</div>
+    <div class="status">
+        <div class="pulse"></div>
+        الأستاذ متصل | جاهزون لتنفيذ طلباتكم
+    </div>
+</header>
+
+<div class="trust-box">
+    <h2>دليل الثقة والإثباتات 🛡️</h2>
+    <p>لمشاهدة صور تفعيل الحسابات وآراء المشتركين السابقين، تفضل بزيارة قناتنا الرسمية على تليجرام</p>
+    <a href="https://t.me/jejfs" class="btn-telegram">دخول قناة الإثباتات (Telegram)</a>
+</div>
+
+<div class="container">
+    <div class="product-card">
+        <h3>CapCut Pro</h3>
+        <p style="color: #888;">خطة برو لمدة شهر كامل</p>
+        <div class="price">10,000 <span>د.ع</span></div>
+        <a href="https://wa.me/9647728257333?text=أريد طلب كاب كات برو (10 آلاف)" class="btn-order">اطلب عبر واتساب</a>
+    </div>
+
+    <div class="product-card">
+        <h3>Gemini Advanced</h3>
+        <p style="color: #888;">اشتراك سنوي - ذكاء اصطناعي فائق</p>
+        <div class="price">40,000 <span>د.ع</span></div>
+        <a href="https://wa.me/9647728257333?text=أريد طلب جيمناي سنوي (40 ألف)" class="btn-order">اطلب عبر واتساب</a>
+    </div>
+
+    <div class="product-card" style="border-color: var(--accent);">
+        <h3>ChatGPT Pro</h3>
+        <p style="color: #888;">خطة برو لمدة شهر كامل (حساب خاص)</p>
+        <div class="price">15,000 <span>د.ع</span></div>
+        <a href="https://wa.me/9647728257333?text=أريد طلب جات جي بي تي برو شهر (15 ألف)" class="btn-order">اطلب عبر واتساب</a>
+    </div>
+
+    <div class="product-card">
+        <h3>ChatGPT Pro</h3>
+        <p style="color: #888;">خطة برو (مشترك) - توفير عالي</p>
+        <div class="price">5,000 <span>د.ع</span></div>
+        <a href="https://wa.me/9647728257333?text=أريد طلب جات جي بي تي مشترك (5 آلاف)" class="btn-order">اطلب عبر واتساب</a>
+    </div>
+
+    <div class="product-card">
+        <h3>ChatGPT Pro</h3>
+        <p style="color: #888;">اشتراك لمدة 3 أشهر (خطة برو)</p>
+        <div class="price">35,000 <span>د.ع</span></div>
+        <a href="https://wa.me/9647728257333?text=أريد طلب جات جي بي تي 3 أشهر (35 ألف)" class="btn-order">اطلب عبر واتساب</a>
+    </div>
+
+    <div class="product-card">
+        <h3>ChatGPT GO</h3>
+        <p style="color: #888;">خطة سنوية كاملة</p>
+        <div class="price">50,000 <span>د.ع</span></div>
+        <a href="https://wa.me/9647728257333?text=أريد طلب جات جي بي تي سنوي GO (50 ألف)" class="btn-order">اطلب عبر واتساب</a>
+    </div>
+</div>
+
+<footer>
+    <p style="margin-bottom: 15px;">متجر CD للاشتراكات الرقمية</p>
+    <a href="https://www.instagram.com/8j_37?igsh=ZDl2Ym91dmt1OGgy" class="social-link">انستقرام المتجر</a>
+</footer>
+
+</body>
+</html>
