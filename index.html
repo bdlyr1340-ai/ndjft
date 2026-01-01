@@ -1,131 +1,2125 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر CD | اشتراكات رقمية موثوقة</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #08080a;
-            --accent: #00d2ff;
-            --telegram-color: #24A1DE;
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.08);
-            --success: #00ff88;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="theme-color" content="#0b1220" />
+  <title>CD PRO - إدارة الاشتراكات</title>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
-        body { background-color: var(--bg); color: #fff; line-height: 1.6; overflow-x: hidden; }
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-        header { padding: 60px 20px; text-align: center; background: radial-gradient(circle at top, #15151e, #08080a); }
-        .logo { font-size: 3.5rem; font-weight: 800; color: var(--accent); text-shadow: 0 0 30px rgba(0,210,255,0.3); }
-        .status { display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 255, 136, 0.1); padding: 5px 15px; border-radius: 20px; color: var(--success); font-size: 0.85rem; margin-top: 15px; border: 1px solid rgba(0, 255, 136, 0.2); }
-        .pulse { width: 8px; height: 8px; background: var(--success); border-radius: 50%; animation: pulse 1.5s infinite; }
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --ink:#0b1220;
+      --muted:#6b7280;
+      --line:#e5e7eb;
 
-        /* قسم دليل الثقة الجديد */
-        .trust-box {
-            max-width: 800px; margin: 20px auto; padding: 30px;
-            background: rgba(36, 161, 222, 0.05);
-            border: 1px solid var(--telegram-color);
-            border-radius: 25px; text-align: center;
-            backdrop-filter: blur(10px);
-        }
-        .trust-box h2 { color: var(--telegram-color); margin-bottom: 10px; }
-        .btn-telegram {
-            display: inline-block; padding: 12px 30px; background: var(--telegram-color);
-            color: white; text-decoration: none; border-radius: 50px; font-weight: bold;
-            margin-top: 15px; transition: 0.3s;
-        }
-        .btn-telegram:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(36, 161, 222, 0.5); }
+      --primary:#0b1220;
+      --accent:#2563eb;
 
-        /* المنتجات */
-        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .product-card { 
-            background: var(--glass); border: 1px solid var(--border); border-radius: 24px; 
-            padding: 30px; transition: 0.4s; display: flex; flex-direction: column; justify-content: space-between;
-        }
-        .product-card:hover { border-color: var(--accent); transform: translateY(-5px); background: rgba(255,255,255,0.05); }
-        .price { font-size: 2rem; font-weight: 700; color: var(--accent); margin: 20px 0; }
-        .price span { font-size: 0.9rem; color: #777; margin-right: 5px; }
-        
-        .btn-order { 
-            display: block; width: 100%; padding: 15px; background: var(--accent); color: #000;
-            text-decoration: none; text-align: center; border-radius: 12px; font-weight: 700; transition: 0.3s;
-        }
-        .btn-order:hover { background: #fff; box-shadow: 0 0 25px var(--accent); }
+      --success:#16a34a;
+      --danger:#ef4444;
+      --warning:#f59e0b;
 
-        footer { padding: 40px 20px; text-align: center; border-top: 1px solid var(--border); margin-top: 50px; }
-        .social-link { color: #888; text-decoration: none; transition: 0.3s; }
-        .social-link:hover { color: var(--accent); }
+      --radius:18px;
+      --shadow: 0 10px 30px rgba(2,6,23,.08);
+      --shadow2: 0 2px 10px rgba(2,6,23,.06);
+    }
 
-        @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
-    </style>
+    /* Dark theme */
+    html[data-theme="dark"]{
+      --bg:#070b14;
+      --card:#0b1220;
+      --ink:#e5e7eb;
+      --muted:#9ca3af;
+      --line:rgba(226,232,240,.12);
+      --shadow: 0 16px 34px rgba(0,0,0,.35);
+      --shadow2: 0 8px 20px rgba(0,0,0,.30);
+    }
+
+    *{ box-sizing:border-box; font-family:"Tajawal",system-ui,-apple-system,Segoe UI,Roboto,Arial; -webkit-tap-highlight-color:transparent; }
+    body{
+      margin:0;
+      color:var(--ink);
+      background:var(--bg);
+      padding-bottom:84px; /* bottom nav space */
+    }
+
+    /* App bar */
+    .appbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background: linear-gradient(135deg, #0b1220, #020617);
+      color:#fff;
+      padding:14px 14px 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+    }
+    .appbar .row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width: 0;
+    }
+    .avatar{
+      width:40px;height:40px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      background: rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.14);
+      font-weight:900;
+      letter-spacing:.6px;
+      flex:0 0 auto;
+    }
+    .brand .txt{
+      min-width:0;
+    }
+    .brand h1{
+      margin:0;
+      font-size:1.02rem;
+      font-weight:900;
+      line-height:1.1;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .brand p{
+      margin:3px 0 0;
+      font-size:.78rem;
+      opacity:.86;
+      font-weight:700;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .actions{ display:flex; gap:8px; flex:0 0 auto; }
+    .icon-btn{
+      border:none;
+      width:42px;height:42px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      background: rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.14);
+      transition: transform .12s ease, background .12s ease;
+    }
+    .icon-btn:active{ transform: scale(.98); }
+    .icon-btn svg{ width:20px; height:20px; fill:none; stroke:#fff; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+
+    /* Layout */
+    .container{ padding: 14px; max-width: 760px; margin: 0 auto; }
+
+    /* Cards */
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      padding:14px;
+      margin-bottom:12px;
+    }
+    .card-title{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    .card-title h2{
+      margin:0;
+      font-size:.95rem;
+      font-weight:900;
+      letter-spacing:.1px;
+    }
+    .muted{ color:var(--muted); font-weight:700; font-size:.82rem; }
+
+    .grid{ display:grid; gap:10px; }
+    .grid.cols-2{ grid-template-columns: repeat(2, 1fr); }
+
+    .stat{
+      background: var(--card);
+      border:1px solid var(--line);
+      border-radius: 16px;
+      padding:12px;
+    }
+    .stat b{
+      display:block;
+      font-weight:900;
+      font-size:1.1rem;
+    }
+    .stat span{
+      display:block;
+      margin-top:4px;
+      color:var(--muted);
+      font-size:.72rem;
+      font-weight:800;
+    }
+
+    /* Inputs */
+    label{ display:block; font-size:.78rem; font-weight:900; margin-bottom:6px; }
+    input, select, textarea{
+      width:100%;
+      padding:12px 12px;
+      border:1px solid var(--line);
+      border-radius: 14px;
+      background: var(--card);
+      color: var(--ink);
+      outline:none;
+      font-size:.92rem;
+      font-weight:700;
+    }
+    textarea{ min-height: 96px; resize:none; }
+    .row2{ display:flex; gap:10px; }
+    .row2 > div{ flex:1; }
+
+    /* Buttons */
+    .btn{
+      border:none;
+      border-radius: 16px;
+      padding:12px 12px;
+      font-weight:900;
+      font-size:.9rem;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      transition: transform .12s ease, opacity .12s ease;
+    }
+    .btn:active{ transform: scale(.99); opacity:.95; }
+    .btn.primary{ background: var(--accent); color:#fff; }
+    .btn.soft{ background: var(--card); color: var(--ink); border:1px solid var(--line); }
+    .btn.danger{ background: var(--danger); color:#fff; }
+    .btn.success{ background: var(--success); color:#fff; }
+    .btn.full{ width:100%; }
+
+    .btn svg{ width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+
+    /* Search bar */
+    .search{
+      display:flex;
+      gap:8px;
+      align-items:center;
+    }
+    .search .in{
+      position:relative;
+      flex:1;
+    }
+    .search .in svg{
+      position:absolute;
+      top:50%;
+      transform: translateY(-50%);
+      right:12px;
+      width:18px;height:18px;
+      stroke: var(--muted);
+      fill:none;
+      stroke-width:2;
+      pointer-events:none;
+    }
+    .search input{
+      padding-right: 40px;
+    }
+
+    /* Chips */
+    .chips{ display:flex; gap:8px; overflow:auto; padding-bottom:6px; }
+    .chip{
+      border:1px solid var(--line);
+      background: var(--card);
+      color: var(--ink);
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:900;
+      font-size:.78rem;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+    .chip.active{
+      border-color: rgba(37,99,235,.35);
+      background: rgba(37,99,235,.10);
+      color: var(--accent);
+    }
+
+    /* Subscriber card */
+    .sub{
+      background: var(--card);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding:14px;
+      margin-bottom:10px;
+      box-shadow: var(--shadow2);
+      position:relative;
+      overflow:hidden;
+      transition: transform .12s ease;
+    }
+    .sub:active{ transform: scale(.995); }
+
+    .sub::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-right: 4px solid var(--accent);
+      pointer-events:none;
+    }
+    .sub.expired::before{ border-right-color: var(--danger); }
+    .sub.soon::before{ border-right-color: var(--warning); }
+    .sub.vip::before{ border-right-color: #8b5cf6; }
+
+    .sub-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .sub-name{
+      font-weight:900;
+      font-size: 1rem;
+      line-height:1.25;
+      margin:0;
+    }
+    .sub-meta{ margin-top:8px; }
+    .sub-meta div{ margin-top:4px; color:var(--muted); font-weight:800; font-size:.82rem; }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      padding:4px 10px;
+      border-radius: 999px;
+      font-weight:900;
+      font-size:.72rem;
+      border:1px solid var(--line);
+      color: var(--ink);
+      background: rgba(148,163,184,.12);
+      margin-inline-start:6px;
+    }
+    .badge.good{ background: rgba(22,163,74,.12); border-color: rgba(22,163,74,.20); color: #15803d; }
+    .badge.bad{ background: rgba(239,68,68,.12); border-color: rgba(239,68,68,.20); color: #b91c1c; }
+    .badge.warn{ background: rgba(245,158,11,.12); border-color: rgba(245,158,11,.22); color: #b45309; }
+    html[data-theme="dark"] .badge.good{ color:#4ade80; }
+    html[data-theme="dark"] .badge.bad{ color:#f87171; }
+    html[data-theme="dark"] .badge.warn{ color:#fbbf24; }
+
+    .sub-actions{
+      display:flex;
+      gap:10px;
+      justify-content:flex-start;
+      margin-top:12px;
+      padding-top:12px;
+      border-top:1px solid var(--line);
+    }
+    .a-btn{
+      width:44px;height:40px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: var(--card);
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+    }
+    .a-btn svg{ width:18px; height:18px; fill:none; stroke: var(--ink); stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .a-btn.primary{ background: rgba(37,99,235,.10); border-color: rgba(37,99,235,.25); }
+    .a-btn.primary svg{ stroke: var(--accent); }
+    .a-btn.success{ background: rgba(22,163,74,.10); border-color: rgba(22,163,74,.22); }
+    .a-btn.success svg{ stroke: var(--success); }
+    .a-btn.danger{ background: rgba(239,68,68,.10); border-color: rgba(239,68,68,.22); }
+    .a-btn.danger svg{ stroke: var(--danger); }
+
+    /* Views */
+    .view{ display:none; }
+    .view.active{ display:block; animation: fade .18s ease; }
+    @keyframes fade{ from{ opacity:.2; transform: translateY(6px); } to{ opacity:1; transform:none; } }
+
+    /* Bottom nav (Instagram-like) */
+    .bottom{
+      position:fixed;
+      bottom:0; left:0; right:0;
+      background: var(--card);
+      border-top: 1px solid var(--line);
+      z-index:60;
+      padding: 8px 10px calc(10px + env(safe-area-inset-bottom));
+      box-shadow: 0 -14px 30px rgba(2,6,23,.10);
+    }
+    .nav{
+      max-width: 760px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:8px;
+    }
+    .nav button{
+      border:none;
+      background: transparent;
+      padding:10px 8px;
+      border-radius: 16px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+      cursor:pointer;
+      color: var(--muted);
+      font-weight:900;
+      font-size:.74rem;
+    }
+    .nav button.active{
+      background: rgba(37,99,235,.10);
+      color: var(--accent);
+    }
+    .nav svg{ width:22px; height:22px; fill:none; stroke: currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+
+    /* Modal sheet */
+    .modal{
+      position:fixed;
+      inset:0;
+      background: rgba(2,6,23,.45);
+      display:none;
+      align-items:flex-end;
+      justify-content:center;
+      z-index:120;
+      padding: 12px;
+    }
+    .sheet{
+      width:100%;
+      max-width: 760px;
+      background: var(--card);
+      border:1px solid var(--line);
+      border-bottom:none;
+      border-radius: 22px 22px 0 0;
+      box-shadow: 0 -18px 36px rgba(0,0,0,.22);
+      padding: 14px;
+      max-height: 86vh;
+      overflow:auto;
+    }
+    .sheet h3{ margin: 6px 0 6px; font-size: 1rem; font-weight: 900; }
+    .sheet .subtxt{ margin:0 0 12px; color: var(--muted); font-weight:800; font-size:.82rem; line-height:1.55; }
+
+    /* Toast */
+    .toast{
+      position: fixed;
+      top: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 24px);
+      max-width: 760px;
+      background: rgba(2,6,23,.92);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      padding: 12px 12px;
+      box-shadow: 0 18px 44px rgba(0,0,0,.30);
+      display:none;
+      z-index: 200;
+      backdrop-filter: blur(6px);
+    }
+    .toast .t1{ font-weight:900; margin-bottom:4px; }
+    .toast .t2{ font-weight:700; opacity:.95; line-height:1.55; }
+    .toast .trow{ margin-top:10px; display:flex; gap:10px; }
+    .toast .tbtn{
+      border:none;
+      background: rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.14);
+      color:#fff;
+      border-radius: 14px;
+      padding: 10px 12px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    /* Receipt (hidden) */
+    #hidden-area{ position: fixed; left: -9999px; top:0; }
+    .receipt{
+      width: 340px;
+      background: #fff;
+      border-radius: 18px;
+      padding: 16px;
+      text-align:center;
+      border: 1px solid #e5e7eb;
+    }
+    .receipt h2{ margin:0; font-weight: 900; font-size: 1.05rem; }
+    .receipt .meta{ color:#334155; font-weight: 800; margin-top:6px; font-size:.82rem; }
+    .receipt .hr{ height:1px; background:#e5e7eb; margin: 10px 0; }
+    .receipt .data{ text-align:right; font-weight: 800; color:#0b1220; font-size: .88rem; }
+    .receipt .data p{ margin: 7px 0; }
+    .receipt .pay{
+      text-align:right;
+      font-weight:900;
+      font-size:.84rem;
+      color:#0b1220;
+      margin-top: 6px;
+    }
+    .receipt .pay ul{
+      margin: 8px 0 0;
+      padding: 0 18px 0 0;
+      color:#0b1220;
+      font-weight:800;
+      font-size:.82rem;
+    }
+    .receipt .foot{
+      margin-top: 10px;
+      font-size: .74rem;
+      color:#334155;
+      font-weight: 900;
+      line-height: 1.5;
+      white-space: pre-line;
+    }
+    .qr-wrap{
+      display:flex;
+      justify-content:center;
+      margin-top: 10px;
+    }
+  </style>
 </head>
+
 <body>
+  <!-- Icons -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <symbol id="i-home" viewBox="0 0 24 24">
+        <path d="M3 10.5 12 3l9 7.5"></path>
+        <path d="M5.5 10.5V21h13V10.5"></path>
+      </symbol>
+      <symbol id="i-users" viewBox="0 0 24 24">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+        <path d="M8.5 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8"></path>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+      </symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24">
+        <path d="M12 5v14"></path>
+        <path d="M5 12h14"></path>
+      </symbol>
+      <symbol id="i-bolt" viewBox="0 0 24 24">
+        <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"></path>
+      </symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24">
+        <path d="M4 6h16"></path>
+        <path d="M4 12h16"></path>
+        <path d="M4 18h16"></path>
+      </symbol>
+      <symbol id="i-search" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="7"></circle>
+        <path d="M21 21l-4.3-4.3"></path>
+      </symbol>
+      <symbol id="i-wa" viewBox="0 0 24 24">
+        <path d="M20 12a8 8 0 0 1-12.2 6.8L4 20l1.3-3.6A8 8 0 1 1 20 12z"></path>
+        <path d="M8.5 9.5c.2-1 .6-1.4 1.1-1.4.3 0 .7.1.9.4l.6 1c.1.2.1.5 0 .7l-.3.6c.3.7 1.2 1.7 2.1 2.1l.6-.3c.2-.1.5-.1.7 0l1 .6c.3.2.4.6.4.9 0 .5-.4.9-1.4 1.1-1 .2-2.9-.6-4.5-2.1-1.5-1.6-2.3-3.5-2.1-4.5z"></path>
+      </symbol>
+      <symbol id="i-check" viewBox="0 0 24 24">
+        <path d="M20 6 9 17l-5-5"></path>
+      </symbol>
+      <symbol id="i-more" viewBox="0 0 24 24">
+        <circle cx="5" cy="12" r="1.7"></circle>
+        <circle cx="12" cy="12" r="1.7"></circle>
+        <circle cx="19" cy="12" r="1.7"></circle>
+      </symbol>
+      <symbol id="i-edit" viewBox="0 0 24 24">
+        <path d="M12 20h9"></path>
+        <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path>
+      </symbol>
+      <symbol id="i-trash" viewBox="0 0 24 24">
+        <path d="M3 6h18"></path>
+        <path d="M8 6V4h8v2"></path>
+        <path d="M19 6l-1 14H6L5 6"></path>
+      </symbol>
+      <symbol id="i-renew" viewBox="0 0 24 24">
+        <path d="M21 12a9 9 0 0 1-15 6.4"></path>
+        <path d="M3 12a9 9 0 0 1 15-6.4"></path>
+        <path d="M3 18v-5h5"></path>
+        <path d="M21 6v5h-5"></path>
+      </symbol>
+      <symbol id="i-receipt" viewBox="0 0 24 24">
+        <path d="M6 2h12v20l-2-1-2 1-2-1-2 1-2-1-2 1V2z"></path>
+        <path d="M8 6h8"></path>
+        <path d="M8 10h8"></path>
+        <path d="M8 14h6"></path>
+      </symbol>
+      <symbol id="i-settings" viewBox="0 0 24 24">
+        <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"></path>
+        <path d="M19.4 15a7.8 7.8 0 0 0 .1-2l2-1.5-2-3.5-2.4 1a7.9 7.9 0 0 0-1.7-1L15 4h-6l-.4 3a7.9 7.9 0 0 0-1.7 1L4.5 7l-2 3.5 2 1.5a7.8 7.8 0 0 0 .1 2l-2 1.5 2 3.5 2.4-1a7.9 7.9 0 0 0 1.7 1L9 22h6l.4-3a7.9 7.9 0 0 0 1.7-1l2.4 1 2-3.5-2-1.5z"></path>
+      </symbol>
+    </defs>
+  </svg>
 
-<header>
-    <div class="logo">متجر CD</div>
-    <div class="status">
-        <div class="pulse"></div>
-        الأستاذ متصل | جاهزون لتنفيذ طلباتكم
+  <!-- App bar -->
+  <header class="appbar">
+    <div class="row">
+      <div class="brand">
+        <div class="avatar" id="uiLogo">CD</div>
+        <div class="txt">
+          <h1 id="uiStoreName">CD متجر CD</h1>
+          <p id="uiSubline">إدارة اشتراكات بشكل سلس وبسيط</p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="icon-btn" onclick="openQuickSale()" aria-label="بيع سريع">
+          <svg><use href="#i-bolt"></use></svg>
+        </button>
+        <button class="icon-btn" onclick="openMenu()" aria-label="القائمة">
+          <svg><use href="#i-menu"></use></svg>
+        </button>
+      </div>
     </div>
-</header>
+  </header>
 
-<div class="trust-box">
-    <h2>دليل الثقة والإثباتات 🛡️</h2>
-    <p>لمشاهدة صور تفعيل الحسابات وآراء المشتركين السابقين، تفضل بزيارة قناتنا الرسمية على تليجرام</p>
-    <a href="https://t.me/jejfs" class="btn-telegram">دخول قناة الإثباتات (Telegram)</a>
-</div>
+  <main class="container">
+    <!-- Home -->
+    <section id="view-home" class="view active">
+      <div class="card">
+        <div class="card-title">
+          <h2>لوحة اليوم</h2>
+          <span class="muted" id="uiTodayLine">—</span>
+        </div>
 
-<div class="container">
-    <div class="product-card">
-        <h3>CapCut Pro</h3>
-        <p style="color: #888;">خطة برو لمدة شهر كامل</p>
-        <div class="price">10,000 <span>د.ع</span></div>
-        <a href="https://wa.me/9647728257333?text=أريد طلب كاب كات برو (10 آلاف)" class="btn-order">اطلب عبر واتساب</a>
+        <div class="grid cols-2">
+          <div class="stat"><b id="stTodayIncome">0</b><span>دخل اليوم</span></div>
+          <div class="stat"><b id="stTotalIncome">0</b><span>إجمالي الدخل</span></div>
+          <div class="stat"><b id="stActive">0</b><span>مشترك فعّال</span></div>
+          <div class="stat"><b id="stExpSoon">0</b><span id="lblExpSoon">قريب الانتهاء</span></div>
+        </div>
+
+        <div class="grid cols-2" style="margin-top:10px;">
+          <button class="btn primary full" onclick="go('add')">
+            <svg><use href="#i-plus"></use></svg>
+            إضافة اشتراك
+          </button>
+          <button class="btn soft full" onclick="openReminders()">
+            عرض المنتهي قريباً
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <h2>قائمة قريبة الانتهاء</h2>
+          <button class="btn soft" onclick="go('subs')">عرض الكل</button>
+        </div>
+        <div id="uiSoonList"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <h2>آخر النشاط</h2>
+          <button class="btn soft" onclick="clearActivity()">مسح</button>
+        </div>
+        <div id="uiActivity"></div>
+      </div>
+    </section>
+
+    <!-- Subscribers -->
+    <section id="view-subs" class="view">
+      <div class="card">
+        <div class="card-title">
+          <h2>المشتركين</h2>
+          <span class="muted" id="uiCountLine">0</span>
+        </div>
+
+        <div class="search" style="margin-bottom:10px;">
+          <div class="in">
+            <svg><use href="#i-search"></use></svg>
+            <input id="qSub" type="text" placeholder="بحث بالاسم أو الرقم أو الخدمة" oninput="renderSubs()" />
+          </div>
+          <button class="btn soft" onclick="renderSubs()">بحث</button>
+        </div>
+
+        <div class="chips">
+          <button class="chip active" id="f_all" onclick="setFilter('all')">الكل</button>
+          <button class="chip" id="f_active" onclick="setFilter('active')">فعّال</button>
+          <button class="chip" id="f_soon" onclick="setFilter('soon')">قريب الانتهاء</button>
+          <button class="chip" id="f_expired" onclick="setFilter('expired')">منتهي</button>
+          <button class="chip" id="f_unpaid" onclick="setFilter('unpaid')">غير مدفوع</button>
+          <button class="chip" id="f_paid" onclick="setFilter('paid')">مدفوع</button>
+          <button class="chip" id="f_vip" onclick="setFilter('vip')">VIP</button>
+        </div>
+      </div>
+
+      <div id="uiSubs"></div>
+    </section>
+
+    <!-- Add -->
+    <section id="view-add" class="view">
+      <div class="card">
+        <div class="card-title">
+          <h2>إضافة اشتراك</h2>
+          <span class="muted">سريع ومرتب</span>
+        </div>
+
+        <div class="row2">
+          <div>
+            <label>الخدمة</label>
+            <select id="fService" onchange="applyServiceDefaults()"></select>
+          </div>
+          <div>
+            <label>المدة</label>
+            <select id="fDuration" onchange="calcEnd(); applyServiceDefaults();">
+              <option value="1">شهر</option>
+              <option value="3">3 أشهر</option>
+              <option value="12">سنة</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-top:10px;">
+          <label>اسم الزبون</label>
+          <input id="fName" placeholder="الاسم" />
+        </div>
+
+        <div style="margin-top:10px;">
+          <label>رقم الواتساب</label>
+          <input id="fPhone" placeholder="07xxxxxxxxx" />
+        </div>
+
+        <div class="row2" style="margin-top:10px;">
+          <div>
+            <label>المبلغ (دينار)</label>
+            <input id="fPrice" type="number" value="15000" />
+          </div>
+          <div>
+            <label>VIP</label>
+            <select id="fVip">
+              <option value="no">لا</option>
+              <option value="yes">نعم</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row2" style="margin-top:10px;">
+          <div>
+            <label>تاريخ البدء</label>
+            <input id="fStart" type="date" onchange="calcEnd()" />
+          </div>
+          <div>
+            <label>تاريخ النهاية</label>
+            <input id="fEnd" type="date" disabled />
+          </div>
+        </div>
+
+        <div style="margin-top:10px;">
+          <label>ملاحظة (اختياري)</label>
+          <textarea id="fNote" placeholder="ملاحظة"></textarea>
+        </div>
+
+        <button class="btn primary full" style="margin-top:12px;" onclick="addCustomer()">
+          حفظ الاشتراك
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom nav -->
+  <nav class="bottom" aria-label="التنقل">
+    <div class="nav">
+      <button id="nav-home" class="active" onclick="go('home')">
+        <svg><use href="#i-home"></use></svg>
+        الرئيسية
+      </button>
+      <button id="nav-subs" onclick="go('subs')">
+        <svg><use href="#i-users"></use></svg>
+        المشتركين
+      </button>
+      <button id="nav-add" onclick="go('add')">
+        <svg><use href="#i-plus"></use></svg>
+        إضافة
+      </button>
     </div>
+  </nav>
 
-    <div class="product-card">
-        <h3>Gemini Advanced</h3>
-        <p style="color: #888;">اشتراك سنوي - ذكاء اصطناعي فائق</p>
-        <div class="price">40,000 <span>د.ع</span></div>
-        <a href="https://wa.me/9647728257333?text=أريد طلب جيمناي سنوي (40 ألف)" class="btn-order">اطلب عبر واتساب</a>
+  <!-- Toast -->
+  <div id="toast" class="toast" role="status" aria-live="polite">
+    <div class="t1" id="toastT">—</div>
+    <div class="t2" id="toastB">—</div>
+    <div class="trow" id="toastActions" style="display:none;"></div>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal" onclick="closeModal(event)">
+    <div class="sheet" onclick="event.stopPropagation()">
+      <div id="modalBody"></div>
     </div>
+  </div>
 
-    <div class="product-card" style="border-color: var(--accent);">
-        <h3>ChatGPT Pro</h3>
-        <p style="color: #888;">خطة برو لمدة شهر كامل (حساب خاص)</p>
-        <div class="price">15,000 <span>د.ع</span></div>
-        <a href="https://wa.me/9647728257333?text=أريد طلب جات جي بي تي برو شهر (15 ألف)" class="btn-order">اطلب عبر واتساب</a>
+  <!-- Receipt Hidden -->
+  <div id="hidden-area">
+    <div id="receiptBox" class="receipt">
+      <h2 id="rStore">CD متجر CD</h2>
+      <div class="meta" id="rMeta">وصل</div>
+      <div class="hr"></div>
+      <div class="data" id="rData"></div>
+
+      <div class="hr"></div>
+      <div class="pay" id="rPayTitle">طرق الدفع</div>
+      <ul id="rPayList"></ul>
+
+      <div class="hr"></div>
+      <div class="foot" id="rFoot"></div>
+      <div class="qr-wrap"><div id="rQR"></div></div>
     </div>
+  </div>
 
-    <div class="product-card">
-        <h3>ChatGPT Pro</h3>
-        <p style="color: #888;">خطة برو (مشترك) - توفير عالي</p>
-        <div class="price">5,000 <span>د.ع</span></div>
-        <a href="https://wa.me/9647728257333?text=أريد طلب جات جي بي تي مشترك (5 آلاف)" class="btn-order">اطلب عبر واتساب</a>
-    </div>
+  <script>
+    // =============================
+    // SETTINGS (yours)
+    // =============================
+    const DEFAULT_SETTINGS = {
+      storeName: "CD متجر CD",
+      whatsappOwner: "07728257333",
+      instagramUrl: "https://www.instagram.com/8j_37?igsh=ZDl2Ym91dmt1OGgy",
 
-    <div class="product-card">
-        <h3>ChatGPT Pro</h3>
-        <p style="color: #888;">اشتراك لمدة 3 أشهر (خطة برو)</p>
-        <div class="price">35,000 <span>د.ع</span></div>
-        <a href="https://wa.me/9647728257333?text=أريد طلب جات جي بي تي 3 أشهر (35 ألف)" class="btn-order">اطلب عبر واتساب</a>
-    </div>
+      theme: "system",     // system | light | dark
+      accent: "#2563eb",
+      remindDaysBefore: 1,
 
-    <div class="product-card">
-        <h3>ChatGPT GO</h3>
-        <p style="color: #888;">خطة سنوية كاملة</p>
-        <div class="price">50,000 <span>د.ع</span></div>
-        <a href="https://wa.me/9647728257333?text=أريد طلب جات جي بي تي سنوي GO (50 ألف)" class="btn-order">اطلب عبر واتساب</a>
-    </div>
-</div>
+      paymentMethods: [
+        "ماستر سوبر كي",
+        "اساسيل",
+        "فاينص USDT (عملة رقمية)"
+      ],
 
-<footer>
-    <p style="margin-bottom: 15px;">متجر CD للاشتراكات الرقمية</p>
-    <a href="https://www.instagram.com/8j_37?igsh=ZDl2Ym91dmt1OGgy" class="social-link">انستقرام المتجر</a>
-</footer>
+      // WhatsApp templates (no emojis)
+      waTemplates: {
+        reminder:
+`*{store}*
+السلام عليكم {name}
+تنبيه: اشتراك {service} سينتهي بتاريخ {end}.
+المتبقي: {daysLeftHuman}
 
+هل ترغب بالتجديد؟
+رد بكلمة: نعم`,
+        status:
+`*{store}*
+مرحباً {name}
+الخدمة: {service}
+الانتهاء: {end}
+المتبقي: {daysLeftHuman}
+الحالة: {paidStatus}`,
+        thanks:
+`*{store}*
+شكراً {name}
+تم استلام الدفع بنجاح
+الخدمة: {service}
+الانتهاء: {end}`
+      },
+
+      // Services
+      services: [
+        { name:"ChatGPT Plus", prices:{ "1":15000, "3":45000, "12":180000 } },
+        { name:"Canva Pro",    prices:{ "1":15000, "3":45000, "12":180000 } },
+        { name:"CapCut Pro",   prices:{ "1":15000, "3":45000, "12":180000 } },
+        { name:"YouTube",      prices:{ "1":15000, "3":45000, "12":180000 } }
+      ]
+    };
+
+    // =============================
+    // STORAGE KEYS (v3)
+    // =============================
+    const K_SETTINGS  = "cd_pro_settings_v3";
+    const K_CUSTOMERS = "cd_pro_customers_v3";
+    const K_SALES     = "cd_pro_sales_v3";
+    const K_ACTIVITY  = "cd_pro_activity_v3";
+    const K_SCHEMA    = "cd_pro_schema_v3";
+
+    // Migrate from older versions if exist
+    const LEGACY = {
+      settings: ["cd_pro_settings_v2","cd_pro_settings_v1"],
+      customers:["cd_pro_customers_v2","cd_pro_customers_v1"],
+      sales:    ["cd_pro_sales_v2","cd_pro_sales_v1"],
+      activity: ["cd_pro_activity_v2","cd_pro_activity_v1"]
+    };
+
+    // =============================
+    // HELPERS
+    // =============================
+    function load(key, fallback){
+      try{
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      }catch(e){ return fallback; }
+    }
+    function save(key, value){
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+    function deepMerge(target, src){
+      if(!src || typeof src !== "object") return target;
+      for(const k of Object.keys(src)){
+        const v = src[k];
+        if(v && typeof v === "object" && !Array.isArray(v)){
+          if(!target[k] || typeof target[k] !== "object" || Array.isArray(target[k])) target[k] = {};
+          deepMerge(target[k], v);
+        }else{
+          target[k] = v;
+        }
+      }
+      return target;
+    }
+    function uid(){
+      return (crypto && crypto.randomUUID) ? crypto.randomUUID() : (Date.now()+"_"+Math.random().toString(16).slice(2));
+    }
+    function nowISO(){ return new Date().toISOString(); }
+    function ymd(d=new Date()){
+      const x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+      const m = String(x.getMonth()+1).padStart(2,"0");
+      const day = String(x.getDate()).padStart(2,"0");
+      return `${x.getFullYear()}-${m}-${day}`;
+    }
+    function parseYMD(s){
+      if(!s) return null;
+      const p = s.split("-");
+      if(p.length!==3) return null;
+      return new Date(Number(p[0]), Number(p[1])-1, Number(p[2]));
+    }
+    function daysLeft(endYmd){
+      const end = parseYMD(endYmd);
+      if(!end) return null;
+      const today = parseYMD(ymd());
+      const ms = end.getTime() - today.getTime();
+      return Math.round(ms / 86400000);
+    }
+    function daysLeftHuman(dl){
+      if(dl === null || dl === undefined) return "—";
+      if(dl < 0) return `منتهي منذ ${Math.abs(dl)} يوم`;
+      if(dl === 0) return "اليوم";
+      if(dl === 1) return "غداً";
+      return `${dl} أيام`;
+    }
+    function money(n){
+      const x = Number(n||0);
+      return x.toLocaleString("ar-IQ") + " د.ع";
+    }
+    function cleanPhone(p){
+      return String(p||"").replace(/\s+/g,"").trim();
+    }
+    function toWA(phone){
+      let p = cleanPhone(phone);
+      if(p.startsWith("07")) p = "964" + p.substring(1); // Iraq
+      return p;
+    }
+    function formatTemplate(tpl, data){
+      const s = String(tpl||"");
+      return s.replace(/\{(\w+)\}/g, (_,k)=> (data[k]!==undefined && data[k]!==null) ? String(data[k]) : "");
+    }
+    function getRemindDays(){
+      const x = Number(settings.remindDaysBefore);
+      if(Number.isFinite(x)) return Math.max(0, Math.min(14, Math.floor(x)));
+      return 1;
+    }
+
+    // =============================
+    // DATA
+    // =============================
+    let settings = deepMerge(structuredClone(DEFAULT_SETTINGS), load(K_SETTINGS, {}));
+    let customers = load(K_CUSTOMERS, []);
+    let sales = load(K_SALES, []);
+    let activity = load(K_ACTIVITY, []);
+
+    let filter = "all";
+    let lastDeleted = null;
+
+    // =============================
+    // MIGRATION (one-time)
+    // =============================
+    (function migrate(){
+      const done = load(K_SCHEMA, null);
+      if(done === "ok") return;
+
+      // Migrate settings if new is empty-ish
+      if(!localStorage.getItem(K_SETTINGS)){
+        for(const k of LEGACY.settings){
+          const v = load(k, null);
+          if(v && typeof v === "object"){
+            settings = deepMerge(structuredClone(DEFAULT_SETTINGS), v);
+            save(K_SETTINGS, settings);
+            break;
+          }
+        }
+      }
+
+      if(customers.length===0){
+        for(const k of LEGACY.customers){
+          const v = load(k, null);
+          if(Array.isArray(v) && v.length){
+            customers = v;
+            save(K_CUSTOMERS, customers);
+            break;
+          }
+        }
+      }
+
+      if(sales.length===0){
+        for(const k of LEGACY.sales){
+          const v = load(k, null);
+          if(Array.isArray(v) && v.length){
+            sales = v;
+            save(K_SALES, sales);
+            break;
+          }
+        }
+      }
+
+      if(activity.length===0){
+        for(const k of LEGACY.activity){
+          const v = load(k, null);
+          if(Array.isArray(v) && v.length){
+            activity = v;
+            save(K_ACTIVITY, activity);
+            break;
+          }
+        }
+      }
+
+      save(K_SCHEMA, "ok");
+    })();
+
+    // =============================
+    // THEME
+    // =============================
+    function applyTheme(){
+      // Accent
+      document.documentElement.style.setProperty("--accent", settings.accent || DEFAULT_SETTINGS.accent);
+
+      // Theme
+      let t = String(settings.theme || "system");
+      if(!["system","light","dark"].includes(t)) t = "system";
+      let finalTheme = t;
+      if(t==="system"){
+        finalTheme = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+      }
+      document.documentElement.setAttribute("data-theme", finalTheme);
+    }
+
+    // =============================
+    // COMPUTE STATS
+    // =============================
+    function sumIncomeAll(){
+      const paidSum = customers.reduce((s,c)=> s + (c.paid ? Number(c.price||0) : 0), 0);
+      const salesSum = sales.reduce((s,x)=> s + Number(x.amount||0), 0);
+      return paidSum + salesSum;
+    }
+    function sumIncomeToday(){
+      const todayKey = ymd();
+      const paidToday = customers.reduce((s,c)=>{
+        if(!c.paid || !c.paidAt) return s;
+        const k = ymd(new Date(c.paidAt));
+        return s + (k===todayKey ? Number(c.price||0) : 0);
+      }, 0);
+      const salesToday = sales.reduce((s,x)=> (ymd(new Date(x.ts))===todayKey ? s + Number(x.amount||0) : s), 0);
+      return paidToday + salesToday;
+    }
+    function countActive(){
+      return customers.filter(c=>{
+        const dl = daysLeft(c.end);
+        return dl !== null && dl >= 0;
+      }).length;
+    }
+    function countSoon(){
+      const d = getRemindDays();
+      return customers.filter(c=>{
+        const dl = daysLeft(c.end);
+        return dl !== null && dl >= 0 && dl <= d;
+      }).length;
+    }
+
+    // =============================
+    // UI NAV
+    // =============================
+    function go(view){
+      const views = ["home","subs","add"];
+      views.forEach(v=>{
+        document.getElementById("view-"+v).classList.toggle("active", v===view);
+        document.getElementById("nav-"+v).classList.toggle("active", v===view);
+      });
+      if(view==="home") renderHome();
+      if(view==="subs") renderSubs();
+      if(view==="add") renderAddInit();
+      window.scrollTo({ top:0, behavior:"smooth" });
+    }
+
+    // =============================
+    // SERVICES
+    // =============================
+    function normalizeServices(){
+      if(!Array.isArray(settings.services) || settings.services.length===0){
+        settings.services = structuredClone(DEFAULT_SETTINGS.services);
+      }
+    }
+    function renderServicesSelect(){
+      normalizeServices();
+      const sel = document.getElementById("fService");
+      const prev = sel.value;
+      sel.innerHTML = "";
+      settings.services.forEach(s=>{
+        const opt = document.createElement("option");
+        opt.value = s.name;
+        opt.textContent = s.name;
+        sel.appendChild(opt);
+      });
+      if(prev && Array.from(sel.options).some(o=>o.value===prev)) sel.value = prev;
+    }
+    function serviceByName(name){
+      normalizeServices();
+      return settings.services.find(s=> String(s.name)===String(name));
+    }
+    function getServicePrice(serviceName, months){
+      const svc = serviceByName(serviceName);
+      if(!svc) return null;
+      const m = String(months||1);
+      if(svc.prices && svc.prices[m] !== undefined) return Number(svc.prices[m]||0);
+      return null;
+    }
+    function applyServiceDefaults(){
+      const svcName = document.getElementById("fService").value;
+      const dm = Number(document.getElementById("fDuration").value||1);
+      const price = getServicePrice(svcName, dm);
+      const f = document.getElementById("fPrice");
+      if(price !== null && Number.isFinite(price)){
+        // only auto-fill when untouched, or if last auto-fill
+        if(!f.value || Number(f.value)<=0 || f.dataset.auto==="1"){
+          f.value = price;
+          f.dataset.auto = "1";
+        }
+      }
+    }
+
+    // =============================
+    // ADD SUB
+    // =============================
+    function calcEnd(){
+      const start = parseYMD(document.getElementById("fStart").value);
+      const dm = Number(document.getElementById("fDuration").value||1);
+      if(!start) return;
+      const end = new Date(start.getFullYear(), start.getMonth()+dm, start.getDate());
+      document.getElementById("fEnd").value = ymd(end);
+    }
+
+    function addCustomer(){
+      const name = (document.getElementById("fName").value||"").trim();
+      const phone = (document.getElementById("fPhone").value||"").trim();
+      if(!name || !phone) return alert("اكتب الاسم والرقم أولاً");
+
+      const service = document.getElementById("fService").value || "خدمة";
+      const dm = Number(document.getElementById("fDuration").value||1);
+      const start = document.getElementById("fStart").value || ymd();
+      const end = document.getElementById("fEnd").value || ymd();
+      const price = Number(document.getElementById("fPrice").value||0);
+
+      const c = {
+        id: uid(),
+        name,
+        phone,
+        service,
+        durationMonths: dm,
+        start,
+        end,
+        price,
+        paid: false,
+        paidAt: null,
+        remindedEnd: null,
+        vip: (document.getElementById("fVip").value === "yes"),
+        note: (document.getElementById("fNote").value||"").trim(),
+        createdAt: nowISO()
+      };
+
+      customers.unshift(c);
+      save(K_CUSTOMERS, customers);
+
+      addActivity("add", `تمت إضافة اشتراك: ${name}`, price);
+
+      // reset
+      document.getElementById("fName").value="";
+      document.getElementById("fPhone").value="";
+      document.getElementById("fNote").value="";
+      document.getElementById("fVip").value="no";
+      document.getElementById("fPrice").dataset.auto="1";
+      applyServiceDefaults();
+
+      showToast("تم الحفظ", "تمت إضافة الاشتراك بنجاح");
+      go("subs");
+    }
+
+    // =============================
+    // ACTIVITY
+    // =============================
+    function addActivity(type, text, amount=null){
+      activity.unshift({ id: uid(), ts: nowISO(), type, text, amount });
+      activity = activity.slice(0, 80);
+      save(K_ACTIVITY, activity);
+    }
+    function clearActivity(){
+      if(!confirm("مسح سجل النشاط؟")) return;
+      activity = [];
+      save(K_ACTIVITY, activity);
+      renderHome();
+      showToast("تم", "تم مسح سجل النشاط");
+    }
+
+    // =============================
+    // STATUS + FILTER
+    // =============================
+    function statusOf(c){
+      const dl = daysLeft(c.end);
+      const expired = (dl !== null && dl < 0);
+      const soon = (dl !== null && dl >= 0 && dl <= getRemindDays());
+      return { dl, expired, soon };
+    }
+
+    function setFilter(f){
+      filter = f;
+      ["all","active","soon","expired","unpaid","paid","vip"].forEach(x=>{
+        document.getElementById("f_"+x).classList.toggle("active", x===f);
+      });
+      renderSubs();
+    }
+
+    // =============================
+    // ACTIONS
+    // =============================
+    function togglePaid(id){
+      const i = customers.findIndex(x=>x.id===id);
+      if(i<0) return;
+      const c = customers[i];
+
+      if(!c.paid){
+        c.paid = true;
+        c.paidAt = nowISO();
+        addActivity("pay", `تم تسجيل دفع: ${c.name}`, Number(c.price||0));
+        save(K_CUSTOMERS, customers);
+        showToast("تم", "تم تسجيل الدفع");
+      }else{
+        c.paid = false;
+        c.paidAt = null;
+        addActivity("unpay", `تم إلغاء الدفع: ${c.name}`, Number(c.price||0));
+        save(K_CUSTOMERS, customers);
+        showToast("تم", "تم إلغاء الدفع");
+      }
+
+      renderHome();
+      renderSubs();
+    }
+
+    function confirmRenew(id){
+      const i = customers.findIndex(x=>x.id===id);
+      if(i<0) return;
+      const c = customers[i];
+      const dm = Math.max(1, Number(c.durationMonths||1));
+
+      const start = parseYMD(ymd());
+      const end = new Date(start.getFullYear(), start.getMonth()+dm, start.getDate());
+
+      c.start = ymd(start);
+      c.end = ymd(end);
+      c.paid = false;
+      c.paidAt = null;
+      c.remindedEnd = null;
+
+      save(K_CUSTOMERS, customers);
+      addActivity("renew", `تم تجديد الاشتراك: ${c.name}`, null);
+
+      hideModal();
+      showToast("تم", "تم تجديد الاشتراك");
+      renderHome();
+      renderSubs();
+    }
+
+    function deleteCustomer(id){
+      const i = customers.findIndex(x=>x.id===id);
+      if(i<0) return;
+      if(!confirm("حذف الزبون؟")) return;
+
+      lastDeleted = customers[i];
+      customers.splice(i,1);
+      save(K_CUSTOMERS, customers);
+      addActivity("del", `تم حذف: ${lastDeleted.name}`, null);
+
+      hideModal();
+      renderHome();
+      renderSubs();
+
+      showToast("تم الحذف", "يمكنك التراجع خلال ثواني", [
+        { label:"تراجع", action: undoDelete }
+      ], 6500);
+    }
+
+    function undoDelete(){
+      if(!lastDeleted) return;
+      customers.unshift(lastDeleted);
+      save(K_CUSTOMERS, customers);
+      addActivity("undo", `تم التراجع عن الحذف: ${lastDeleted.name}`, null);
+      lastDeleted = null;
+      hideToast();
+      renderHome();
+      renderSubs();
+      showToast("تم", "تم التراجع عن الحذف");
+    }
+
+    // =============================
+    // WHATSAPP
+    // =============================
+    function sendWA(id, mode="auto"){
+      const c = customers.find(x=>x.id===id);
+      if(!c) return;
+
+      const st = statusOf(c);
+      const p = toWA(c.phone);
+      if(!p) return alert("رقم غير صحيح");
+
+      const remindDays = getRemindDays();
+      if(mode==="auto"){
+        if(st.dl !== null && st.dl >= 0 && st.dl <= remindDays) mode="reminder";
+        else mode="status";
+      }
+
+      const data = {
+        store: settings.storeName,
+        name: c.name,
+        service: c.service,
+        end: c.end,
+        daysLeftHuman: daysLeftHuman(st.dl),
+        paidStatus: c.paid ? "مدفوع" : "غير مدفوع"
+      };
+
+      let tpl = settings.waTemplates?.status || DEFAULT_SETTINGS.waTemplates.status;
+      if(mode==="reminder") tpl = settings.waTemplates?.reminder || DEFAULT_SETTINGS.waTemplates.reminder;
+      if(mode==="thanks") tpl = settings.waTemplates?.thanks || DEFAULT_SETTINGS.waTemplates.thanks;
+
+      const msg = formatTemplate(tpl, data);
+
+      // mark reminder
+      if(mode==="reminder"){
+        c.remindedEnd = c.end;
+        save(K_CUSTOMERS, customers);
+        addActivity("reminder", `تم إرسال تذكير: ${c.name}`, null);
+        renderHome();
+        renderSubs();
+      }
+
+      window.open(`https://wa.me/${p}?text=${encodeURIComponent(msg)}`);
+    }
+
+    // =============================
+    // QUICK SALE
+    // =============================
+    function openQuickSale(){
+      const html = `
+        <h3>بيع سريع</h3>
+        <p class="subtxt">يسجل دخل اليوم بدون إضافة زبون.</p>
+
+        <label>المبلغ (دينار)</label>
+        <input id="qsAmount" type="number" value="15000"/>
+
+        <div style="margin-top:10px;">
+          <label>ملاحظة (اختياري)</label>
+          <input id="qsNote" placeholder="وصف بسيط"/>
+        </div>
+
+        <div class="grid cols-2" style="margin-top:12px;">
+          <button class="btn primary full" onclick="addQuickSale()">حفظ</button>
+          <button class="btn soft full" onclick="hideModal()">إلغاء</button>
+        </div>
+      `;
+      showModal(html);
+    }
+
+    function addQuickSale(){
+      const amount = Number(document.getElementById("qsAmount").value||0);
+      if(amount<=0) return alert("اكتب مبلغ صحيح");
+
+      const note = (document.getElementById("qsNote").value||"").trim();
+      const item = { id: uid(), ts: nowISO(), amount, note };
+      sales.unshift(item);
+      sales = sales.slice(0, 800);
+      save(K_SALES, sales);
+
+      addActivity("sale", `بيع سريع${note? ": "+note:""}`, amount);
+
+      hideModal();
+      renderHome();
+      showToast("تم", "تم تسجيل البيع");
+    }
+
+    // =============================
+    // MENU (Settings / Backup)
+    // =============================
+    function openMenu(){
+      const body = `
+        <h3>القائمة</h3>
+        <p class="subtxt">إعدادات المتجر والنسخ الاحتياطي.</p>
+
+        <div class="grid cols-2">
+          <button class="btn soft full" onclick="openSettings()">
+            <svg><use href="#i-settings"></use></svg>
+            الإعدادات
+          </button>
+          <button class="btn soft full" onclick="openBackup()">
+            <svg><use href="#i-receipt"></use></svg>
+            نسخة احتياطية
+          </button>
+        </div>
+
+        <div class="grid cols-2" style="margin-top:10px;">
+          <button class="btn soft full" onclick="openReminders()">المنتهي قريباً</button>
+          <button class="btn soft full" onclick="hideModal()">إغلاق</button>
+        </div>
+      `;
+      showModal(body);
+    }
+
+    function openBackup(){
+      const pack = { settings, customers, sales, activity, exportedAt: nowISO() };
+      const json = JSON.stringify(pack, null, 2);
+      window.__backupJSON = json;
+
+      const body = `
+        <h3>نسخة احتياطية</h3>
+        <p class="subtxt">تصدير أو استيراد ملف JSON. البيانات تبقى على جهازك.</p>
+
+        <div class="grid cols-2">
+          <button class="btn primary full" onclick="downloadBackup()">تصدير JSON</button>
+          <button class="btn soft full" onclick="copyBackup()">نسخ JSON</button>
+        </div>
+
+        <div style="margin-top:12px;">
+          <label>استيراد (ملف JSON)</label>
+          <input type="file" id="impFile" accept="application/json"/>
+        </div>
+
+        <div class="grid cols-2" style="margin-top:12px;">
+          <button class="btn success full" onclick="importBackup()">استيراد</button>
+          <button class="btn danger full" onclick="resetAll()">تصفير الكل</button>
+        </div>
+
+        <div style="margin-top:12px;" class="muted">© ${escapeHtml(settings.storeName)} - جميع الحقوق محفوظة</div>
+      `;
+      showModal(body);
+    }
+
+    function downloadBackup(){
+      const blob = new Blob([window.__backupJSON || "{}"], { type:"application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `CD-PRO-backup-${ymd()}.json`;
+      a.click();
+      setTimeout(()=> URL.revokeObjectURL(a.href), 2000);
+    }
+    async function copyBackup(){
+      try{
+        await navigator.clipboard.writeText(window.__backupJSON || "");
+        showToast("تم", "تم نسخ النسخة الاحتياطية");
+      }catch(e){
+        alert("المتصفح لم يسمح بالنسخ. استخدم التصدير.");
+      }
+    }
+    async function importBackup(){
+      const f = document.getElementById("impFile").files[0];
+      if(!f) return alert("اختر ملف أولاً");
+      const txt = await f.text();
+      try{
+        const pack = JSON.parse(txt);
+        if(pack.settings) settings = deepMerge(structuredClone(DEFAULT_SETTINGS), pack.settings);
+        if(Array.isArray(pack.customers)) customers = pack.customers;
+        if(Array.isArray(pack.sales)) sales = pack.sales;
+        if(Array.isArray(pack.activity)) activity = pack.activity;
+
+        save(K_SETTINGS, settings);
+        save(K_CUSTOMERS, customers);
+        save(K_SALES, sales);
+        save(K_ACTIVITY, activity);
+
+        applyTheme();
+        hideModal();
+        showToast("تم", "تم الاستيراد بنجاح");
+        renderAll();
+      }catch(e){
+        alert("ملف غير صالح");
+      }
+    }
+    function resetAll(){
+      const ok = prompt("اكتب كلمة (حذف) للتأكيد:");
+      if(ok !== "حذف") return;
+
+      localStorage.removeItem(K_SETTINGS);
+      localStorage.removeItem(K_CUSTOMERS);
+      localStorage.removeItem(K_SALES);
+      localStorage.removeItem(K_ACTIVITY);
+      localStorage.removeItem(K_SCHEMA);
+
+      settings = structuredClone(DEFAULT_SETTINGS);
+      customers = [];
+      sales = [];
+      activity = [];
+      save(K_SCHEMA, "ok");
+
+      applyTheme();
+      hideModal();
+      showToast("تم", "تم تصفير البيانات");
+      renderAll();
+      go("home");
+    }
+
+    // =============================
+    // SETTINGS (simple + professional)
+    // =============================
+    function servicesToText(list){
+      if(!Array.isArray(list)) return "";
+      return list.map(s=>{
+        const p1 = (s.prices && s.prices["1"]!==undefined) ? s.prices["1"] : "";
+        const p3 = (s.prices && s.prices["3"]!==undefined) ? s.prices["3"] : "";
+        const p12= (s.prices && s.prices["12"]!==undefined) ? s.prices["12"] : "";
+        return `${s.name||""}|${p1||""}|${p3||""}|${p12||""}`;
+      }).join("\n");
+    }
+    function parseServicesText(txt){
+      const lines = String(txt||"").split("\n").map(x=>x.trim()).filter(Boolean);
+      const out = [];
+      lines.forEach(line=>{
+        const parts = line.split("|").map(x=>x.trim());
+        const name = parts[0];
+        if(!name) return;
+        const p1 = Number(parts[1]||0);
+        const p3 = Number(parts[2]|| (p1? p1*3 : 0));
+        const p12= Number(parts[3]|| (p1? p1*12: 0));
+        out.push({ name, prices:{ "1":p1||0, "3":p3||0, "12":p12||0 } });
+      });
+      return out;
+    }
+    function paymentToText(list){
+      if(!Array.isArray(list)) return "";
+      return list.map(x=>String(x||"")).join("\n");
+    }
+    function parsePaymentText(txt){
+      return String(txt||"").split("\n").map(x=>x.trim()).filter(Boolean);
+    }
+
+    function openSettings(){
+      const body = `
+        <h3>الإعدادات</h3>
+        <p class="subtxt">كل شيء هنا بسيط وواضح. تستطيع تغيير الخدمات وطرق الدفع والواجهة.</p>
+
+        <div class="card" style="box-shadow:none;">
+          <div style="font-weight:900; margin-bottom:8px;">بيانات المتجر</div>
+          <label>اسم المتجر</label>
+          <input id="sStore" value="${escapeHtml(settings.storeName)}"/>
+
+          <div class="row2" style="margin-top:10px;">
+            <div>
+              <label>واتساب</label>
+              <input id="sWA" value="${escapeHtml(settings.whatsappOwner)}"/>
+            </div>
+            <div>
+              <label>انستقرام</label>
+              <input id="sIG" value="${escapeHtml(settings.instagramUrl)}"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="box-shadow:none;">
+          <div style="font-weight:900; margin-bottom:8px;">المظهر والتنبيهات</div>
+          <div class="row2">
+            <div>
+              <label>الثيم</label>
+              <select id="sTheme">
+                <option value="system">حسب الجهاز</option>
+                <option value="light">فاتح</option>
+                <option value="dark">داكن</option>
+              </select>
+            </div>
+            <div>
+              <label>اللون الأساسي</label>
+              <input id="sAccent" type="color" value="${escapeHtml(settings.accent || DEFAULT_SETTINGS.accent)}"/>
+            </div>
+          </div>
+
+          <div style="margin-top:10px;">
+            <label>قريب الانتهاء خلال (يوم)</label>
+            <input id="sRemind" type="number" min="0" max="14" value="${getRemindDays()}"/>
+          </div>
+        </div>
+
+        <div class="card" style="box-shadow:none;">
+          <div style="font-weight:900; margin-bottom:8px;">الخدمات والأسعار</div>
+          <div class="muted">الصيغة: اسم|سعر1|سعر3|سعر12</div>
+          <textarea id="sServices" style="margin-top:10px; min-height:120px;">${escapeHtml(servicesToText(settings.services))}</textarea>
+        </div>
+
+        <div class="card" style="box-shadow:none;">
+          <div style="font-weight:900; margin-bottom:8px;">طرق الدفع (تظهر بالوصل)</div>
+          <textarea id="sPay" style="min-height:110px;">${escapeHtml(paymentToText(settings.paymentMethods))}</textarea>
+        </div>
+
+        <div class="card" style="box-shadow:none;">
+          <div style="font-weight:900; margin-bottom:8px;">قوالب واتساب</div>
+          <label>تذكير</label>
+          <textarea id="sTplR" style="min-height:110px;">${escapeHtml(settings.waTemplates?.reminder || DEFAULT_SETTINGS.waTemplates.reminder)}</textarea>
+          <label style="margin-top:10px;">حالة</label>
+          <textarea id="sTplS" style="min-height:110px;">${escapeHtml(settings.waTemplates?.status || DEFAULT_SETTINGS.waTemplates.status)}</textarea>
+          <label style="margin-top:10px;">شكر الدفع</label>
+          <textarea id="sTplT" style="min-height:110px;">${escapeHtml(settings.waTemplates?.thanks || DEFAULT_SETTINGS.waTemplates.thanks)}</textarea>
+          <div class="muted" style="margin-top:8px;">
+            المتغيرات: {store} {name} {service} {end} {daysLeftHuman} {paidStatus}
+          </div>
+        </div>
+
+        <div class="grid cols-2" style="margin-top:12px;">
+          <button class="btn primary full" onclick="saveSettings()">حفظ</button>
+          <button class="btn soft full" onclick="hideModal()">إغلاق</button>
+        </div>
+      `;
+      showModal(body);
+      setTimeout(()=>{
+        document.getElementById("sTheme").value = settings.theme || "system";
+      }, 0);
+    }
+
+    function saveSettings(){
+      settings.storeName = (document.getElementById("sStore").value||"").trim() || DEFAULT_SETTINGS.storeName;
+      settings.whatsappOwner = (document.getElementById("sWA").value||"").trim() || DEFAULT_SETTINGS.whatsappOwner;
+      settings.instagramUrl = (document.getElementById("sIG").value||"").trim() || DEFAULT_SETTINGS.instagramUrl;
+
+      settings.theme = document.getElementById("sTheme").value || "system";
+      settings.accent = document.getElementById("sAccent").value || DEFAULT_SETTINGS.accent;
+      settings.remindDaysBefore = Number(document.getElementById("sRemind").value||1);
+
+      const parsedServices = parseServicesText(document.getElementById("sServices").value || "");
+      if(parsedServices.length) settings.services = parsedServices;
+
+      const pay = parsePaymentText(document.getElementById("sPay").value || "");
+      settings.paymentMethods = pay.length ? pay : structuredClone(DEFAULT_SETTINGS.paymentMethods);
+
+      settings.waTemplates = settings.waTemplates || {};
+      settings.waTemplates.reminder = document.getElementById("sTplR").value || DEFAULT_SETTINGS.waTemplates.reminder;
+      settings.waTemplates.status   = document.getElementById("sTplS").value || DEFAULT_SETTINGS.waTemplates.status;
+      settings.waTemplates.thanks   = document.getElementById("sTplT").value || DEFAULT_SETTINGS.waTemplates.thanks;
+
+      save(K_SETTINGS, settings);
+
+      applyTheme();
+      renderAll();
+
+      hideModal();
+      showToast("تم", "تم حفظ الإعدادات");
+    }
+
+    // =============================
+    // REMINDERS (sheet)
+    // =============================
+    function openReminders(){
+      const d = getRemindDays();
+      const list = customers
+        .map(c=> ({ c, st: statusOf(c) }))
+        .filter(x=> x.st.dl !== null && x.st.dl >= 0 && x.st.dl <= d)
+        .sort((a,b)=> (a.st.dl - b.st.dl));
+
+      let html = `<h3>قريب الانتهاء</h3>
+        <p class="subtxt">الاشتراكات التي تنتهي خلال ${d} يوم.</p>`;
+
+      if(list.length===0){
+        html += `<div class="card" style="box-shadow:none; margin:0;">
+          <b>لا توجد عناصر</b>
+          <div class="muted" style="margin-top:6px;">لا يوجد اشتراكات ضمن الفترة المحددة.</div>
+        </div>
+        <div class="grid cols-2" style="margin-top:12px;">
+          <button class="btn soft full" onclick="openSettings()">تغيير الفترة</button>
+          <button class="btn soft full" onclick="hideModal()">إغلاق</button>
+        </div>`;
+        showModal(html);
+        return;
+      }
+
+      list.slice(0, 50).forEach(x=>{
+        const c = x.c, st = x.st;
+        html += `
+          <div class="card" style="box-shadow:none;">
+            <b>${escapeHtml(c.name)}</b>
+            <div class="muted" style="margin-top:6px;">${escapeHtml(c.service)} | ينتهي: <b>${escapeHtml(c.end)}</b> | المتبقي: <b>${daysLeftHuman(st.dl)}</b></div>
+            <div class="grid cols-2" style="margin-top:10px;">
+              <button class="btn primary full" onclick="sendWA('${c.id}','reminder')">إرسال تذكير</button>
+              <button class="btn soft full" onclick="sendWA('${c.id}','status')">إرسال حالة</button>
+            </div>
+          </div>
+        `;
+      });
+
+      html += `<div class="grid cols-2" style="margin-top:12px;">
+        <button class="btn soft full" onclick="openSettings()">إعدادات</button>
+        <button class="btn soft full" onclick="hideModal()">إغلاق</button>
+      </div>`;
+
+      showModal(html);
+    }
+
+    // =============================
+    // MORE (sheet)
+    // =============================
+    function openMore(id){
+      const c = customers.find(x=>x.id===id);
+      if(!c) return;
+
+      const st = statusOf(c);
+
+      const body = `
+        <h3>${escapeHtml(c.name)}</h3>
+        <p class="subtxt">${escapeHtml(c.service)} | ينتهي: ${escapeHtml(c.end)} | المتبقي: ${daysLeftHuman(st.dl)}</p>
+
+        <div class="grid cols-2">
+          <button class="btn soft full" onclick="sendWA('${c.id}','auto')">واتساب</button>
+          <button class="btn ${c.paid ? "soft":"success"} full" onclick="togglePaid('${c.id}')">${c.paid ? "إلغاء دفع":"تسجيل دفع"}</button>
+        </div>
+
+        <div class="grid cols-2" style="margin-top:10px;">
+          <button class="btn soft full" onclick="openEdit('${c.id}')">تعديل</button>
+          <button class="btn soft full" onclick="confirmRenew('${c.id}')">تجديد</button>
+        </div>
+
+        <div class="grid cols-2" style="margin-top:10px;">
+          <button class="btn soft full" onclick="snapReceipt('${c.id}')">وصل</button>
+          <button class="btn danger full" onclick="deleteCustomer('${c.id}')">حذف</button>
+        </div>
+
+        <div class="grid cols-2" style="margin-top:10px;">
+          <button class="btn soft full" onclick="hideModal()">إغلاق</button>
+          <button class="btn primary full" onclick="sendWA('${c.id}','thanks')">رسالة شكر الدفع</button>
+        </div>
+      `;
+      showModal(body);
+    }
+
+    function openEdit(id){
+      const c = customers.find(x=>x.id===id);
+      if(!c) return;
+
+      const body = `
+        <h3>تعديل</h3>
+        <p class="subtxt">تعديل بيانات الزبون بشكل سريع.</p>
+
+        <label>الاسم</label>
+        <input id="eName" value="${escapeHtml(c.name)}"/>
+
+        <div style="margin-top:10px;">
+          <label>الرقم</label>
+          <input id="ePhone" value="${escapeHtml(c.phone)}"/>
+        </div>
+
+        <div class="row2" style="margin-top:10px;">
+          <div>
+            <label>الخدمة</label>
+            <input id="eService" value="${escapeHtml(c.service)}"/>
+          </div>
+          <div>
+            <label>السعر</label>
+            <input id="ePrice" type="number" value="${Number(c.price||0)}"/>
+          </div>
+        </div>
+
+        <div class="row2" style="margin-top:10px;">
+          <div>
+            <label>البداية</label>
+            <input id="eStart" type="date" value="${escapeHtml(c.start)}"/>
+          </div>
+          <div>
+            <label>النهاية</label>
+            <input id="eEnd" type="date" value="${escapeHtml(c.end)}"/>
+          </div>
+        </div>
+
+        <div class="row2" style="margin-top:10px;">
+          <div>
+            <label>المدة (شهر)</label>
+            <input id="eDur" type="number" value="${Number(c.durationMonths||1)}"/>
+          </div>
+          <div>
+            <label>VIP</label>
+            <select id="eVip">
+              <option value="no">لا</option>
+              <option value="yes">نعم</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-top:10px;">
+          <label>ملاحظة</label>
+          <input id="eNote" value="${escapeHtml(c.note||"")}"/>
+        </div>
+
+        <div class="grid cols-2" style="margin-top:12px;">
+          <button class="btn primary full" onclick="saveEdit('${c.id}')">حفظ</button>
+          <button class="btn soft full" onclick="openMore('${c.id}')">رجوع</button>
+        </div>
+      `;
+      showModal(body);
+      setTimeout(()=>{ document.getElementById("eVip").value = c.vip ? "yes":"no"; }, 0);
+    }
+
+    function saveEdit(id){
+      const i = customers.findIndex(x=>x.id===id);
+      if(i<0) return;
+
+      customers[i].name = (document.getElementById("eName").value||"").trim();
+      customers[i].phone = (document.getElementById("ePhone").value||"").trim();
+      customers[i].service = (document.getElementById("eService").value||"").trim();
+      customers[i].price = Number(document.getElementById("ePrice").value||0);
+      customers[i].start = document.getElementById("eStart").value || customers[i].start;
+      customers[i].end = document.getElementById("eEnd").value || customers[i].end;
+      customers[i].durationMonths = Math.max(1, Number(document.getElementById("eDur").value||1));
+      customers[i].vip = (document.getElementById("eVip").value === "yes");
+      customers[i].note = (document.getElementById("eNote").value||"").trim();
+
+      save(K_CUSTOMERS, customers);
+      addActivity("edit", `تم تعديل بيانات: ${customers[i].name}`, null);
+
+      hideModal();
+      renderHome();
+      renderSubs();
+      showToast("تم", "تم حفظ التعديلات");
+    }
+
+    // =============================
+    // RECEIPT (small QR + payment methods)
+    // =============================
+    async function snapReceipt(id){
+      const c = customers.find(x=>x.id===id);
+      if(!c) return;
+
+      const dt = new Date();
+      const time = dt.toLocaleString("ar-IQ");
+
+      document.getElementById("rStore").innerText = settings.storeName;
+      document.getElementById("rMeta").innerText = `وصل - ${time}`;
+
+      document.getElementById("rData").innerHTML = `
+        <p>الاسم: <b>${escapeHtml(c.name)}</b></p>
+        <p>الخدمة: <b>${escapeHtml(c.service)}</b></p>
+        <p>الانتهاء: <b>${escapeHtml(c.end)}</b></p>
+        <p>المبلغ: <b>${money(c.price)}</b></p>
+        <p>الحالة: <b>${c.paid ? "مدفوع" : "غير مدفوع"}</b></p>
+      `;
+
+      // Payment methods list
+      const payList = document.getElementById("rPayList");
+      payList.innerHTML = "";
+      (settings.paymentMethods || []).forEach(x=>{
+        const li = document.createElement("li");
+        li.textContent = String(x||"");
+        payList.appendChild(li);
+      });
+
+      const foot =
+`© ${settings.storeName} - جميع الحقوق محفوظة
+WhatsApp: ${settings.whatsappOwner}
+Instagram: ${settings.instagramUrl}`;
+      document.getElementById("rFoot").innerText = foot;
+
+      // QR (small)
+      const qrBox = document.getElementById("rQR");
+      qrBox.innerHTML = "";
+      try{
+        new QRCode(qrBox, { text: settings.instagramUrl, width: 78, height: 78 });
+      }catch(e){}
+
+      hideModal();
+
+      const node = document.getElementById("receiptBox");
+      const canvas = await html2canvas(node, { scale: 2 });
+      const dataUrl = canvas.toDataURL("image/png");
+
+      // Web Share if available
+      try{
+        if(navigator.canShare){
+          const blob = await (await fetch(dataUrl)).blob();
+          const file = new File([blob], `${c.name}-receipt.png`, { type: "image/png" });
+          if(navigator.canShare({ files: [file] })){
+            await navigator.share({ title: "Receipt", files: [file] });
+            return;
+          }
+        }
+      }catch(e){}
+
+      // Download fallback
+      const a = document.createElement("a");
+      a.download = `${c.name}-receipt.png`;
+      a.href = dataUrl;
+      a.click();
+    }
+
+    // =============================
+    // RENDER
+    // =============================
+    function renderHeader(){
+      document.getElementById("uiStoreName").innerText = settings.storeName;
+      const letters = (settings.storeName || "CD").replace(/\s+/g,"").slice(0,2).toUpperCase();
+      document.getElementById("uiLogo").innerText = letters || "CD";
+    }
+
+    function renderHome(){
+      const today = new Date();
+      document.getElementById("uiTodayLine").innerText = today.toLocaleDateString("ar-IQ");
+
+      const todayIncome = sumIncomeToday();
+      const totalIncome = sumIncomeAll();
+
+      const active = countActive();
+      const soon = countSoon();
+      const d = getRemindDays();
+
+      document.getElementById("stTodayIncome").innerText = money(todayIncome);
+      document.getElementById("stTotalIncome").innerText = money(totalIncome);
+      document.getElementById("stActive").innerText = String(active);
+      document.getElementById("stExpSoon").innerText = String(soon);
+
+      const lbl = document.getElementById("lblExpSoon");
+      if(d===0) lbl.innerText = "ينتهي اليوم";
+      else if(d===1) lbl.innerText = "ينتهي خلال يوم";
+      else lbl.innerText = `ينتهي خلال ${d} أيام`;
+
+      renderSoonList();
+      renderActivity();
+    }
+
+    function renderSoonList(){
+      const box = document.getElementById("uiSoonList");
+      const d = getRemindDays();
+
+      const list = customers
+        .map(c=> ({ c, st: statusOf(c) }))
+        .filter(x=> x.st.dl !== null && x.st.dl >= 0 && x.st.dl <= d)
+        .sort((a,b)=> (a.st.dl - b.st.dl))
+        .slice(0, 6);
+
+      box.innerHTML = "";
+      if(list.length===0){
+        box.innerHTML = `<div class="muted">لا يوجد اشتراكات قريبة الانتهاء ضمن الفترة الحالية.</div>`;
+        return;
+      }
+
+      list.forEach(x=>{
+        const c = x.c, st = x.st;
+        const el = document.createElement("div");
+        el.className = "sub " + (c.vip ? "vip " : "") + (st.expired ? "expired " : "") + (st.soon ? "soon ":"");
+        el.innerHTML = `
+          <div class="sub-top">
+            <div>
+              <p class="sub-name">${escapeHtml(c.name)}
+                ${c.paid ? `<span class="badge good">مدفوع</span>` : `<span class="badge bad">غير مدفوع</span>`}
+                <span class="badge warn">${daysLeftHuman(st.dl)}</span>
+              </p>
+              <div class="sub-meta">
+                <div>${escapeHtml(c.service)}</div>
+                <div>${escapeHtml(c.phone)} | ينتهي: <b>${escapeHtml(c.end)}</b></div>
+              </div>
+            </div>
+            <div class="muted">${money(c.price)}</div>
+          </div>
+
+          <div class="sub-actions">
+            <button class="a-btn primary" onclick="sendWA('${c.id}','auto')" aria-label="واتساب">
+              <svg><use href="#i-wa"></use></svg>
+            </button>
+            <button class="a-btn success" onclick="togglePaid('${c.id}')" aria-label="دفع">
+              <svg><use href="#i-check"></use></svg>
+            </button>
+            <button class="a-btn" onclick="openMore('${c.id}')" aria-label="المزيد">
+              <svg><use href="#i-more"></use></svg>
+            </button>
+          </div>
+        `;
+        box.appendChild(el);
+      });
+    }
+
+    function renderActivity(){
+      const box = document.getElementById("uiActivity");
+      box.innerHTML = "";
+      if(activity.length===0){
+        box.innerHTML = `<div class="muted">لا يوجد نشاط بعد.</div>`;
+        return;
+      }
+      activity.slice(0, 10).forEach(a=>{
+        const d = new Date(a.ts);
+        const t = d.toLocaleTimeString("ar-IQ",{ hour:"2-digit", minute:"2-digit" });
+        const amt = (a.amount!==null && a.amount!==undefined) ? ` | ${money(a.amount)}` : "";
+        const div = document.createElement("div");
+        div.className = "card";
+        div.style.boxShadow = "none";
+        div.style.marginBottom = "10px";
+        div.innerHTML = `<b>${escapeHtml(a.text)}</b><div class="muted" style="margin-top:6px;">${t}${amt}</div>`;
+        box.appendChild(div);
+      });
+    }
+
+    function renderSubs(){
+      const box = document.getElementById("uiSubs");
+      const q = (document.getElementById("qSub").value||"").trim().toLowerCase();
+      box.innerHTML = "";
+
+      let rows = customers.slice();
+
+      if(q){
+        rows = rows.filter(c=>
+          String(c.name||"").toLowerCase().includes(q) ||
+          String(c.phone||"").toLowerCase().includes(q) ||
+          String(c.service||"").toLowerCase().includes(q)
+        );
+      }
+
+      rows = rows.filter(c=>{
+        const st = statusOf(c);
+        if(filter==="vip") return !!c.vip;
+        if(filter==="paid") return !!c.paid;
+        if(filter==="unpaid") return !c.paid;
+        if(filter==="expired") return st.expired;
+        if(filter==="soon") return st.soon;
+        if(filter==="active") return (st.dl !== null && st.dl >= 0);
+        return true;
+      });
+
+      rows.sort((a,b)=>{
+        const da = parseYMD(a.end)?.getTime() || 0;
+        const db = parseYMD(b.end)?.getTime() || 0;
+        return da - db;
+      });
+
+      document.getElementById("uiCountLine").innerText = `${rows.length}`;
+
+      if(rows.length===0){
+        box.innerHTML = `<div class="card"><b>لا توجد نتائج</b><div class="muted" style="margin-top:6px;">جرّب بحث مختلف أو فلتر آخر.</div></div>`;
+        return;
+      }
+
+      rows.forEach(c=>{
+        const st = statusOf(c);
+        const el = document.createElement("div");
+        el.className = "sub " + (c.vip ? "vip " : "") + (st.expired ? "expired " : "") + (st.soon ? "soon ":"");
+        el.innerHTML = `
+          <div class="sub-top">
+            <div>
+              <p class="sub-name">${escapeHtml(c.name)}
+                ${c.paid ? `<span class="badge good">مدفوع</span>` : `<span class="badge bad">غير مدفوع</span>`}
+                ${st.expired ? `<span class="badge bad">منتهي</span>` : (st.soon ? `<span class="badge warn">${daysLeftHuman(st.dl)}</span>` : ``)}
+              </p>
+              <div class="sub-meta">
+                <div>${escapeHtml(c.service)}</div>
+                <div>${escapeHtml(c.phone)} | ينتهي: <b>${escapeHtml(c.end)}</b></div>
+                ${c.note ? `<div>${escapeHtml(c.note)}</div>` : ``}
+              </div>
+            </div>
+            <div class="muted">${money(c.price)}</div>
+          </div>
+
+          <div class="sub-actions">
+            <button class="a-btn primary" onclick="sendWA('${c.id}','auto')" aria-label="واتساب">
+              <svg><use href="#i-wa"></use></svg>
+            </button>
+            <button class="a-btn success" onclick="togglePaid('${c.id}')" aria-label="دفع">
+              <svg><use href="#i-check"></use></svg>
+            </button>
+            <button class="a-btn" onclick="openMore('${c.id}')" aria-label="المزيد">
+              <svg><use href="#i-more"></use></svg>
+            </button>
+          </div>
+        `;
+        box.appendChild(el);
+      });
+    }
+
+    function renderAddInit(){
+      renderServicesSelect();
+      if(!document.getElementById("fStart").value){
+        document.getElementById("fStart").value = ymd();
+      }
+      calcEnd();
+      applyServiceDefaults();
+    }
+
+    function renderAll(){
+      applyTheme();
+      renderHeader();
+      renderAddInit();
+      renderHome();
+      if(document.getElementById("view-subs").classList.contains("active")) renderSubs();
+    }
+
+    // =============================
+    // TOAST
+    // =============================
+    let toastTimer = null;
+    function showToast(title, body, actions=null, ms=4200){
+      const t = document.getElementById("toast");
+      document.getElementById("toastT").innerText = title || "";
+      document.getElementById("toastB").innerText = body || "";
+
+      const act = document.getElementById("toastActions");
+      act.innerHTML = "";
+      if(actions && actions.length){
+        act.style.display = "flex";
+        actions.forEach(a=>{
+          const b = document.createElement("button");
+          b.className = "tbtn";
+          b.textContent = a.label;
+          b.onclick = a.action;
+          act.appendChild(b);
+        });
+      }else{
+        act.style.display = "none";
+      }
+
+      t.style.display = "block";
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(()=>{ t.style.display="none"; }, ms);
+    }
+    function hideToast(){
+      const t = document.getElementById("toast");
+      t.style.display = "none";
+      clearTimeout(toastTimer);
+    }
+
+    // =============================
+    // MODAL
+    // =============================
+    function showModal(html){
+      document.getElementById("modalBody").innerHTML = html;
+      document.getElementById("modal").style.display = "flex";
+    }
+    function hideModal(){
+      document.getElementById("modal").style.display = "none";
+    }
+    function closeModal(e){
+      if(e && e.target && e.target.id === "modal") hideModal();
+    }
+
+    // =============================
+    // Escape HTML
+    // =============================
+    function escapeHtml(s){
+      return String(s||"")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;");
+    }
+
+    // =============================
+    // INIT
+    // =============================
+    document.getElementById("fStart").value = ymd();
+    calcEnd();
+    renderAll();
+
+    // System theme listener
+    try{
+      const mq = window.matchMedia("(prefers-color-scheme: dark)");
+      if(mq && mq.addEventListener){
+        mq.addEventListener("change", ()=>{ if((settings.theme||"system")==="system") applyTheme(); });
+      }
+    }catch(e){}
+  </script>
 </body>
 </html>
